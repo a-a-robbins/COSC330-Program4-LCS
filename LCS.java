@@ -2,7 +2,7 @@
 // COSC 330 - Algorithms
 // Ashley Robbins & Trong Bao
 // Nov 28, 2022
- 
+
 public class LCS {
 
    private enum Status {
@@ -22,18 +22,18 @@ public class LCS {
       //compute entries in row-major order
       for(int i = 1; i <= m; i++) {
          for(int j = 1; j <= n; j++) {
-           if(x.charAt(i - 1) == y.charAt(j - 1)) {
+            if(x.charAt(i - 1) == y.charAt(j - 1)) {
                c[i][j] = c[i-1][j-1]+1;
                b[i-1][j-1] = Status.MATCH;  
-           }
-           else if(c[i-1][j] >= c[i][j-1]) {
-              c[i][j] = c[i-1][j]; 
-              b[i-1][j-1] = Status.UP;  
-           }
-           else {
+            }
+            else if(c[i-1][j] >= c[i][j-1]) {
+               c[i][j] = c[i-1][j]; 
+               b[i-1][j-1] = Status.UP;  
+            }
+            else {
                c[i][j] = c[i][j-1]; 
                b[i-1][j-1] = Status.LEFT; 
-           }
+            }
          }
       }
 
