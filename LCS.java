@@ -57,14 +57,14 @@ public class LCS {
       }
    }
 
- public static void main(String[] args) {
-   String x = "ABCBDAB";
-   String y = "BDCABA";
-    
-    lcs(x, y);
-    
-    
-        
- }
-     
+   public static void main(String[] args) {
+      String x = "ABCBDAB";
+      String y = "BDCABA";
+      
+      lcs(x, y);
+      
+      
+         
+   }
+      
 }
