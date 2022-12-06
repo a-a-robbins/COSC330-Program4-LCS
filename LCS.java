@@ -11,50 +11,58 @@ public class LCS {
       UP
    }
       
-   public static String lcs(String x, String y) {
+   public static void lcs(String x, String y) {
    
       int m = x.length(); 
       int n = y.length(); 
    
-      Status[][] b = new Status[m-1][n-1]; 
-      int[][] c = new int[m][n]; 
-      
-      //fill table c with 0's
-      for(int i = 1; i < m; i++) {
-         c[i][0] = 0; 
-      }  
-      
-      for(int j = 0; j < n; j++) {
-         c[0][j] = 0; 
-      }  
+      Status[][] b = new Status[m][n]; 
+      int[][] c = new int[m+1][n+1]; 
       
       //compute entries in row-major order
-      for(int i = 1; i < m; i++) {
-         for(int j = 1; j < n; j++) {
-           if(x.charAt(i) == y.charAt(i)) {
-               c[i][j] = c[i-1][j-1]+1; 
-               b[i][j] = Status.MATCH;  
+      for(int i = 1; i <= m; i++) {
+         for(int j = 1; j <= n; j++) {
+           if(x.charAt(i - 1) == y.charAt(j - 1)) {
+               c[i][j] = c[i-1][j-1]+1;
+               b[i-1][j-1] = Status.MATCH;  
            }
            else if(c[i-1][j] >= c[i][j-1]) {
               c[i][j] = c[i-1][j]; 
-              b[i][j] = Status.UP;  
+              b[i-1][j-1] = Status.UP;  
            }
            else {
                c[i][j] = c[i][j-1]; 
-               b[i][j] = Status.LEFT; 
+               b[i-1][j-1] = Status.LEFT; 
            }
          }
       }
-   
-      return "retVal"; 
+
+      // Call print LCS
+      printLCS(b, x, m - 1, n - 1);
+
    }
 
+   // Build LCS
+   public static void printLCS(Status[][] b, String x, int i, int j){
+      if (i == -1 || j == -1){
+         return;
+      }
+      if (b[i][j] == Status.MATCH){
+         printLCS(b, x, i - 1, j - 1);
+         System.out.print(x.charAt(i));
+      }else if (b[i][j] == Status.UP) {
+         printLCS(b, x, i - 1, j);
+      }else {
+         printLCS(b, x, i, j - 1);
+      }
+   }
 
  public static void main(String[] args) {
-    String x = "ABCBDAB";
-    String y = "BDCABA";
+   String x = "ABCBDAB";
+   String y = "BDCABA";
     
-    System.out.println(lcs(x,y)); 
+    lcs(x, y);
+    
     
         
  }
