@@ -38,33 +38,31 @@ public class LCS {
       }
 
       // Call print LCS
-      printLCS(b, x, m - 1, n - 1);
+      build(b, x, m - 1, n - 1);
 
    }
 
    // Build LCS
-   public static void printLCS(Status[][] b, String x, int i, int j){
+   public static void build(Status[][] b, String x, int i, int j){
       if (i == -1 || j == -1){
          return;
       }
       if (b[i][j] == Status.MATCH){
-         printLCS(b, x, i - 1, j - 1);
+         build(b, x, i - 1, j - 1);
          System.out.print(x.charAt(i));
       }else if (b[i][j] == Status.UP) {
-         printLCS(b, x, i - 1, j);
+         build(b, x, i - 1, j);
       }else {
-         printLCS(b, x, i, j - 1);
+         build(b, x, i, j - 1);
       }
    }
 
-   public static void main(String[] args) {
-      String x = "ABCBDAB";
-      String y = "BDCABA";
-      
-      lcs(x, y);
-      
-      
-         
-   }
-      
+ public static void main(String[] args) {
+   String x = "ABCBDABBDA";
+   String y = "BDCABABBDA";
+    
+   lcs(x, y);     
+ }
+     
+
 }
